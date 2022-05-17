@@ -1,0 +1,5 @@
+.ipynb_checkpoints
+real_estate_tracker/logs/*
+real_estate_tracker/output/otodom/*
+real_estate_tracker/.env
+*__pycache__
