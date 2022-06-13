@@ -269,5 +269,23 @@ services:
         condition: service_completed_successfully
 
 
+  postgres-dwh:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${DWH_DB_USER}
+      POSTGRES_PASSWORD: ${DWH_DB_PASSWORD}
+      POSTGRES_DB: ${DWH_DB}
+    ports:
+      - 5433:5432
+    volumes:
+      - postgres-dwh-volume:/var/lib/postgresql/data
+      - ./init_dwh.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 5s
+      retries: 5
+    restart: always
+
 volumes:
   postgres-db-volume:
+  postgres-dwh-volume:
